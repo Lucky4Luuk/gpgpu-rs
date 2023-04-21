@@ -37,34 +37,6 @@ impl<'res> SetBindings<'res> {
         self
     }
 
-    pub fn add_image<P: PixelInfo>(mut self, bind_id: u32, img: &'res GpuImage<P>) -> Self {
-        let bind = wgpu::BindGroupEntry {
-            binding: bind_id,
-            resource: img.as_binding_resource(),
-        };
-
-        self.bindings.push(bind);
-        self.entry_type.push(EntryType::Image);
-
-        self
-    }
-
-    pub fn add_const_image<P: PixelInfo>(
-        mut self,
-        bind_id: u32,
-        img: &'res GpuConstImage<P>,
-    ) -> Self {
-        let bind = wgpu::BindGroupEntry {
-            binding: bind_id,
-            resource: img.as_binding_resource(),
-        };
-
-        self.bindings.push(bind);
-        self.entry_type.push(EntryType::ConstImage);
-
-        self
-    }
-
     pub(crate) fn into_bind_group<'fw, 'la>(
         &self,
         fw: &'fw Framework,

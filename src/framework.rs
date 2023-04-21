@@ -10,23 +10,11 @@ pub struct Framework {
 
 impl Default for Framework {
     fn default() -> Self {
-        let backend = wgpu::util::backend_bits_from_env().unwrap_or(wgpu::Backends::PRIMARY);
-        let power_preference = wgpu::util::power_preference_from_env()
-            .unwrap_or(wgpu::PowerPreference::HighPerformance);
-        let instance = wgpu::Instance::new(backend);
-
-        log::debug!(
-            "Requesting device with {:#?} and {:#?}",
-            backend,
-            power_preference
-        );
+        let instance = wgpu::Instance::default();
 
         futures::executor::block_on(async {
             let adapter = instance
-                .request_adapter(&wgpu::RequestAdapterOptions {
-                    power_preference,
-                    ..Default::default()
-                })
+                .request_adapter(&wgpu::RequestAdapterOptions::default())
                 .await
                 .expect("Failed at adapter creation.");
 

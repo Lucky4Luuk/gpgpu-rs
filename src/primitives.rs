@@ -19,7 +19,6 @@
 use crate::Framework;
 
 pub mod buffers;
-pub mod images;
 
 /// Interface to get information, create and decompose GPU allocated buffers.
 pub trait BufOps<'fw, T>
